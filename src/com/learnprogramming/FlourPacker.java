@@ -15,13 +15,23 @@ public class FlourPacker {
     }
 
     public static boolean canPack(int bigCount, int smallCount, int goal) {
-        int difference = goal - bigCount * 5;
         if (bigCount < 0 || smallCount < 0 || goal < 0 ||
                 bigCount * 5 + smallCount < goal) {
             return false;
-        } else if (goal == 5 && bigCount > 1) {
+        }
+        int neededBigCount = goal / 5;
+        int remaining = 0;
+
+        if (bigCount < neededBigCount) {
+            remaining = ((neededBigCount - bigCount) * 5);
+        }
+        remaining = remaining + (goal % 5);
+
+        if (remaining <= smallCount) {
             return true;
-        } else return smallCount >= difference;
+        } else {
+            return false;
+        }
     }
 }
 
